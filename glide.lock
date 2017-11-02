@@ -1,0 +1,29 @@
+hash: 76b9f7a031642a409c6ddecaa82b280d855431c7811a8f624518ac86110137f0
+updated: 2017-11-03T01:16:07.518748+09:00
+imports:
+- name: github.com/derekparker/delve
+  version: a7d1797b0f1a45eee18943504ef60d69bd521f56
+  subpackages:
+  - cmd/dlv
+- name: github.com/mattn/go-colorable
+  version: 167de6bfdfba052fa6b2d3664c8f5272e23c9072
+- name: github.com/peterh/liner
+  version: a37ad39843113264dae84a5d89fcee28f50b35c6
+- name: github.com/spf13/cobra
+  version: 7b2c5ac9fc04fc5efafb60700713d4fa609b777b
+  subpackages:
+  - doc
+- name: golang.org/x/arch
+  version: c319b3c35cc82ad104ce1308d983fdaed7a2fbcb
+  subpackages:
+  - x86/x86asm
+- name: golang.org/x/sys
+  version: 95c6576299259db960f6c5b9b69ea52422860fce
+  subpackages:
+  - unix
+  - windows
+- name: gopkg.in/yaml.v2
+  version: eb3733d160e74a9c7e442f435eb3bea458e1d19f
+testImports:
+- name: github.com/pkg/profile
+  version: 5b67d428864e92711fcbd2f8629456121a56d91f
