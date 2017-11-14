@@ -13,7 +13,7 @@ func main() {
 	primes_f := make([]float64, 1) // list of prime number (cast to float)
 	primes[0] = 2                  // 2 is a prime number
 	primes_f[0] = 2.0              // 2 is a prime number (float)
-	var max int64 = 100
+	var max int64 = 10000
 
 	start := time.Now() // measure time from here
 	var n int64 = 3
