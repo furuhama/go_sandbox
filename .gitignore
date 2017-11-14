@@ -22,6 +22,9 @@
 # bin files
 /bin
 /pkg
+/src/github.com
+/src/golang.org
+/src/honnef.co
 
 # env file
 .envrc
