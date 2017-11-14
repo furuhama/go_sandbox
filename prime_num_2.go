@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	max := 100                        // set max number
+	max := 10000                      // set max number
 	primes := make([]int64, 0)        // list of prime numbers
 	isNotPrime := make([]bool, max+1) // initialize as false(= prime number)
 	isNotPrime[0] = true              // 0 is not prime number
