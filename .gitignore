@@ -15,6 +15,7 @@
 
 # editor
 .idea
+.vscode
 
 # packages
 /vendor
