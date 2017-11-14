@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"strings"
 )
 
 func main() {
@@ -19,5 +18,10 @@ func main() {
 	// Pattern 2
 	// this returns process name & result
 	fmt.Printf("Process name:\n%v\n\n", os.Args[0])
-	fmt.Printf("Result:\n%v", strings.Join(os.Args[1:], " "))
+	//fmt.Printf("Result:\n%v", strings.Join(os.Args[1:], " "))
+	fmt.Printf("Result: \n")
+
+	for key, val := range os.Args[1:] {
+		fmt.Printf("%v: %v", key, val)
+	}
 }
