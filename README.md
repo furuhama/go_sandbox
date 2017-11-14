@@ -8,4 +8,4 @@ http://ascii.jp/elem/000/001/235/1235262/
 
 `プログラミング言語Go`
 
-![lissajous curve](https://github.com/furuhama/go_sandbox/blob/master/img/out.gif)
+![lissajous curve](https://github.com/furuhama/go_sandbox/blob/master/img/out2.gif)
