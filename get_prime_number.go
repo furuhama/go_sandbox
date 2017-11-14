@@ -31,15 +31,19 @@ func main() {
 	}
 
 	// searching prime number
+	algoName := string("")
 	prime := int64(0)
 	start := time.Now() // measure time from here
 	switch *algno {
 	case 1:
+		algoName = "Sieve of Eratosthenes algorithm"
 		prime = LastPrimeE(max)
 	default:
+		algoName= "Basic algorithm"
 		prime = LastPrimeB(max)
 	}
 	goal := time.Now()
+	fmt.Printf("Using: %v\n", algoName)
 	fmt.Printf("%vth prime number is %v\n", max, prime) // get prime number
 	fmt.Printf("time: %v", goal.Sub(start))
 }
