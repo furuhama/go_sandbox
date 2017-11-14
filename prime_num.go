@@ -1,6 +1,6 @@
 package main
 
-import(
+import (
 	"fmt"
 	"time"
 )
@@ -24,6 +24,6 @@ func main() {
 	}
 	goal := time.Now() // measure time end
 
-	fmt.Printf("Prime numbers under %v is %v\n", max, prime_list)
+	fmt.Printf("Prime numbers under %v are %v\n", max, prime_list)
 	fmt.Printf("time: %v", goal.Sub(start))
 }
