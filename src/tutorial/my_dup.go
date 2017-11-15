@@ -1,5 +1,5 @@
 // this returns lines which appears twice or more in stdout
-package main
+package tutorial
 
 import (
 	"bufio"
@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func main() {
+func MyDup() {
 	counts := make(map[string]int)
 	input := bufio.NewScanner(os.Stdin)
 	for input.Scan() {

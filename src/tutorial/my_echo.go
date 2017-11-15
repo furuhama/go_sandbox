@@ -1,12 +1,12 @@
 // behaves like "echo" linux command
-package main
+package tutorial
 
 import (
 	"fmt"
 	"os"
 )
 
-func main() {
+func MyEcho() {
 	var s, sep string
 	for i := 1; i < len(os.Args); i++ {
 		s += sep + os.Args[i]

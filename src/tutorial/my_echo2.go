@@ -1,4 +1,4 @@
-package main
+package tutorial
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func main() {
+func MyEcho2() {
 	fmt.Println("Pattern1 start...")
 	start1 := time.Now()
 	// Patten 1
