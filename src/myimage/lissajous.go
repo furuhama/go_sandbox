@@ -27,7 +27,7 @@ const (
 
 // createLissajous is the main function of this package
 // you should only run this function to create gif animation file
-func createLissajous() {
+func CreateLissajous() {
 	rand.Seed(time.Now().UTC().UnixNano())
 	lissajous(os.Stdout)
 }
