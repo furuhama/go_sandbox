@@ -1,11 +1,11 @@
-package main
+package mymath
 
 import (
 	"fmt"
 	"time"
 )
 
-func main() {
+func PrimeNum() {
 	max := 10000 // set max number
 	prime_list := make([]int64, 0)
 

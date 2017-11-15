@@ -1,6 +1,6 @@
 // use Sieve of Eratosthenes
 // refactor prime_num_2.go to delete unnecessary calculation
-package main
+package mymath
 
 import (
 	"fmt"
@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-func main() {
+func PrimeNum3() {
 	primes := make([]int64, 1)     // list of prime number
 	primes_f := make([]float64, 1) // list of prime number (cast to float)
 	primes[0] = 2                  // 2 is a prime number

@@ -1,12 +1,12 @@
 // use Sieve of Eratosthenes
-package main
+package mymath
 
 import (
 	"fmt"
 	"time"
 )
 
-func main() {
+func PrimeNum2() {
 	max := 10000                      // set max number
 	primes := make([]int64, 0)        // list of prime numbers
 	isNotPrime := make([]bool, max+1) // initialize as false(= prime number)

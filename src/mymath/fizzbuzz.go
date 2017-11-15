@@ -1,10 +1,11 @@
-package main
+package mymath
 
 import (
 	"fmt"
 )
 
-func main() {
+// Fizzbuzz is fizzbuzz program from 1 to 30
+func Fizzbuzz() {
 	for i := 1; i <= 30; i++ {
 		if i%15 == 0 {
 			fmt.Println("fizzbuzz")

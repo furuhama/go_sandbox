@@ -1,4 +1,4 @@
-package main
+package mymath
 
 import (
 	"flag"
@@ -9,7 +9,13 @@ import (
 	"time"
 )
 
-func main() {
+// GetPrimeNumber usage
+// this works to get any number of prime number
+// this needs the number of prime number you want
+// 			& the number of algorithm for searching
+// this only accept command line args (should be called from main() )
+// [example] go run piyopiyo.go --alg=1 10000
+func GetPrimeNumber() {
 	// parsing command line args
 	algno := flag.Int("alg", 0, "0: Basic algorithm, 1: Sieve of Eratosthenes")
 	flag.Parse()
@@ -39,7 +45,7 @@ func main() {
 		algoName = "Sieve of Eratosthenes algorithm"
 		prime = LastPrimeE(max)
 	default:
-		algoName= "Basic algorithm"
+		algoName = "Basic algorithm"
 		prime = LastPrimeB(max)
 	}
 	goal := time.Now()
