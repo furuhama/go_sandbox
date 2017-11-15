@@ -29,3 +29,6 @@
 
 # env file
 .envrc
+
+# debug file
+debug
