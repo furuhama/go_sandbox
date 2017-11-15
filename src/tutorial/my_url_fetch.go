@@ -5,12 +5,17 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strings"
 )
 
 // MyURLFetch parse url as args in command line
 // then, send http request to url
 func MyURLFetch() {
 	for _, url := range os.Args[1:] {
+		// if arg does not have "http://", add this phrase
+		if !strings.HasPrefix(url, "http://") {
+			url = "http://" + url
+		}
 		resp, err := http.Get(url)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "fetch: %v\n", err)
