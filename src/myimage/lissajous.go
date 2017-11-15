@@ -1,4 +1,11 @@
-package main
+// this package creates a gif image
+// lissajous curve animation
+// [usage]
+// 1. call creareLissajous() from main function
+// 2. build it
+// 3. run this in command line -> $ [bin file] > hoge.gif
+// 4. you will get hoge.gif animation file
+package myimage
 
 import (
 	"image"
@@ -18,7 +25,9 @@ const (
 	blackIndex = 1 // next color of palette
 )
 
-func main() {
+// createLissajous is the main function of this package
+// you should only run this function to create gif animation file
+func createLissajous() {
 	rand.Seed(time.Now().UTC().UnixNano())
 	lissajous(os.Stdout)
 }
