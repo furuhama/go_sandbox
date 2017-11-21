@@ -10,13 +10,14 @@ import (
 var mu sync.Mutex
 var count int
 
+// MyServer2 returns more details compared to MyServer
 func MyServer2() {
 	http.HandleFunc("/", handler2)
 	http.HandleFunc("/count", counter)
 	log.Fatal(http.ListenAndServe("localhost:8000", nil))
 }
 
-// handler returns Path element of requested URL
+// handler2 returns request header, host, remote addr, form
 func handler2(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "%s %s %s\n", r.Method, r.URL, r.Proto)
 	for k, v := range r.Header {
