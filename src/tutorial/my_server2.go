@@ -2,9 +2,15 @@ package tutorial
 
 import (
 	"fmt"
+	"image"
+	"image/color"
+	"image/gif"
+	"io"
 	"log"
-	"myimage"
+	"math"
+	"math/rand"
 	"net/http"
+	"strconv"
 	"sync"
 )
 
@@ -47,5 +53,45 @@ func counter(w http.ResponseWriter, r *http.Request) {
 }
 
 func handler3(w http.ResponseWriter, r *http.Request) {
-	myimage.Lissajous(w)
+	if err := r.ParseForm(); err != nil {
+		log.Print(err)
+	}
+
+	cycles := 5
+	for k, v := range r.Form {
+		if k == "cycles" {
+			cycles, _ = strconv.Atoi(v[0])
+		}
+	}
+
+	lissajous(w, cycles)
+}
+
+func lissajous(out io.Writer, cycles int) {
+	const (
+		whiteIndex = 0 // first color of palette
+		blackIndex = 1 // next color of palette
+		// cycles  = 5     // Oscillator X
+		res     = 0.001 // resolution of cycle
+		size    = 100   // image cambus uses range of [-size..+size]
+		nframes = 64    // frame of animation
+		delay   = 8     // delay between every-10ms frames
+	)
+	palette := []color.Color{color.Black, color.RGBA{0x00, 0xff, 0x00, 0xff}}
+	freq := rand.Float64() * 3.0 // freqency of Oscillator Y
+	anim := gif.GIF{LoopCount: nframes}
+	phase := 0.0 // phase difference
+	for i := 0; i < nframes; i++ {
+		rect := image.Rect(0, 0, 2*size+1, 2*size+1)
+		img := image.NewPaletted(rect, palette)
+		for t := 0.0; t < float64(cycles)*2*math.Pi; t += res {
+			x := math.Sin(t)
+			y := math.Sin(t*freq + phase)
+			img.SetColorIndex(size+int(x*size+0.5), size+int(y*size+0.5), blackIndex)
+		}
+		phase += 0.1
+		anim.Delay = append(anim.Delay, delay)
+		anim.Image = append(anim.Image, img)
+	}
+	gif.EncodeAll(out, &anim) // [caution] ignore the encode error
 }
