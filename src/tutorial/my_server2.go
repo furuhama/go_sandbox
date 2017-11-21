@@ -3,6 +3,7 @@ package tutorial
 import (
 	"fmt"
 	"log"
+	"myimage"
 	"net/http"
 	"sync"
 )
@@ -13,6 +14,7 @@ var count int
 // MyServer2 returns more details compared to MyServer
 func MyServer2() {
 	http.HandleFunc("/", handler2)
+	http.HandleFunc("/lissajous", handler3)
 	http.HandleFunc("/count", counter)
 	log.Fatal(http.ListenAndServe("localhost:8000", nil))
 }
@@ -42,4 +44,8 @@ func counter(w http.ResponseWriter, r *http.Request) {
 	mu.Lock()
 	fmt.Fprintf(w, "Count %d\n", count)
 	mu.Unlock()
+}
+
+func handler3(w http.ResponseWriter, r *http.Request) {
+	myimage.Lissajous(w)
 }
