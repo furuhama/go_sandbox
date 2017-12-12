@@ -81,10 +81,10 @@ func LastPrimeE(max int64) int64 {
 	if max <= 1 {
 		return 2
 	}
-	primes := make([]int64, 1, max)     // list of prime numbers
-	primes_f := make([]float64, 1, max) // list of prime numbers (cast to float)
-	primes[0] = 2                       // 2 is a prime number
-	primes_f[0] = 2.0                   // 2 is a prime number
+	primes := make([]int64, 1, max)    // list of prime numbers
+	primesF := make([]float64, 1, max) // list of prime numbers (cast to float)
+	primes[0] = 2                      // 2 is a prime number
+	primesF[0] = 2.0                   // 2 is a prime number
 
 	count := int64(1)
 	for n := int64(3); ; n += 2 { // just checking odd numbers from 3
@@ -92,7 +92,7 @@ func LastPrimeE(max int64) int64 {
 		f := float64(n)    // casting n to float
 		rf := math.Sqrt(f) // get √n
 		for i := 1; i < len(primes); i++ {
-			if primes_f[i] > rf { // just checking n by numbers smaller than √n
+			if primesF[i] > rf { // just checking n by numbers smaller than √n
 				break
 			} else if (n % primes[i]) == 0 {
 				flag = false
@@ -104,8 +104,8 @@ func LastPrimeE(max int64) int64 {
 			if count >= max {
 				return n
 			}
-			primes = append(primes, n)     // add prime number
-			primes_f = append(primes_f, f) // add prime number
+			primes = append(primes, n)   // add prime number
+			primesF = append(primesF, f) // add prime number
 		}
 	}
 }
