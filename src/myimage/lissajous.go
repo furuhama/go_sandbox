@@ -1,4 +1,4 @@
-// this package creates a gif image
+// Package myimage creates a gif image
 // lissajous curve animation
 // [usage]
 // 1. call creareLissajous() from main function

@@ -10,6 +10,7 @@ import (
 var n = flag.Bool("n", false, "omit trailing newline")
 var sep = flag.String("s", " ", "separator")
 
+// MyEcho4 is my echo
 func MyEcho4() {
 	flag.Parse()
 	fmt.Print(strings.Join(flag.Args(), *sep))

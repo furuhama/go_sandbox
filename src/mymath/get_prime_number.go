@@ -55,7 +55,7 @@ func GetPrimeNumber() {
 	fmt.Printf("time: %v", goal.Sub(start))
 }
 
-// Basic algorithm
+// LastPrimeB is Basic algorithm
 func LastPrimeB(max int64) int64 {
 	count := int64(0)
 
@@ -76,7 +76,7 @@ func LastPrimeB(max int64) int64 {
 	}
 }
 
-// Sieve of Eratosthenes algorithm
+// LastPrimeE is Sieve of Eratosthenes algorithm
 func LastPrimeE(max int64) int64 {
 	if max <= 1 {
 		return 2
