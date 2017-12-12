@@ -1,3 +1,4 @@
+// Package mathapp is my math app
 package mathapp
 
 import (

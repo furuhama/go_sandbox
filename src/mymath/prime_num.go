@@ -1,3 +1,4 @@
+// Package mymath is original implementation of math functions
 package mymath
 
 import (
@@ -5,9 +6,10 @@ import (
 	"time"
 )
 
+// PrimeNum returns a prime number
 func PrimeNum() {
 	max := 10000 // set max number
-	prime_list := make([]int64, 0)
+	primeList := make([]int64, 0)
 
 	start := time.Now() // measure time from here
 	for n := 2; n <= max; n++ {
@@ -19,11 +21,11 @@ func PrimeNum() {
 			}
 		}
 		if flag {
-			prime_list = append(prime_list, int64(n))
+			primeList = append(primeList, int64(n))
 		}
 	}
 	goal := time.Now() // measure time end
 
-	fmt.Printf("Prime numbers under %v are %v\n", max, prime_list)
+	fmt.Printf("Prime numbers under %v are %v\n", max, primeList)
 	fmt.Printf("time: %v", goal.Sub(start))
 }

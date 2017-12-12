@@ -1,3 +1,4 @@
+// Package mymath is original implementation of math functions
 // use Sieve of Eratosthenes
 package mymath
 
@@ -6,6 +7,7 @@ import (
 	"time"
 )
 
+// PrimeNum2 returns a prime number
 func PrimeNum2() {
 	max := 10000                      // set max number
 	primes := make([]int64, 0)        // list of prime numbers

@@ -1,3 +1,4 @@
+// Package mymath is original implementation of math functions
 package mymath
 
 // MyFib returns fibonacci number
