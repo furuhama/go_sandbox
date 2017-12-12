@@ -1,4 +1,4 @@
-// this returns lines which appears twice or more in stdout
+// Package tutorial is for the chapter 1 of "The Go Programming Language"
 package tutorial
 
 import (
@@ -7,6 +7,7 @@ import (
 	"os"
 )
 
+// MyDup returns lines which appears twice or more in stdout
 func MyDup() {
 	counts := make(map[string]int)
 	input := bufio.NewScanner(os.Stdin)

@@ -1,3 +1,4 @@
+// Package tutorial is for the chapter 1 of "The Go Programming Language"
 package tutorial
 
 import (
@@ -6,6 +7,8 @@ import (
 	"os"
 )
 
+// MyDup2 returns lines which appears twice or more in stdout
+// instead of Stdin, get file as os.Args[1:]
 func MyDup2() {
 	counts := make(map[string]int)
 	files := os.Args[1:]

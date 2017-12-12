@@ -1,3 +1,4 @@
+// Package tutorial is for the chapter 1 of "The Go Programming Language"
 package tutorial
 
 import (
@@ -6,8 +7,8 @@ import (
 	"net/http"
 )
 
-// MyServer recieve request
-// and send path element from request url as a responce
+// MyServer receive request
+// and send path element from request url as a response
 func MyServer() {
 	http.HandleFunc("/", handler) // handler is called by each request
 	log.Fatal(http.ListenAndServe("localhost:8000", nil))

@@ -1,3 +1,4 @@
+// Package tutorial is for the chapter 1 of "The Go Programming Language"
 package tutorial
 
 import (
@@ -18,7 +19,7 @@ func MyURLFetchAll() {
 		go fetch(url, ch) // start goroutine
 	}
 	for range os.Args[1:] {
-		fmt.Println(<-ch) // recieve from 'ch' channel
+		fmt.Println(<-ch) // receive from 'ch' channel
 	}
 	fmt.Printf("%.2fs elapsed\n", time.Since(start).Seconds())
 }

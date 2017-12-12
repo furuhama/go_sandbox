@@ -1,3 +1,4 @@
+// Package tutorial is for the chapter 1 of "The Go Programming Language"
 package tutorial
 
 import (
@@ -7,6 +8,8 @@ import (
 	"time"
 )
 
+// MyEcho2 behaves like "echo" linux command in two different ways
+// then, returns the time of each way
 func MyEcho2() {
 	fmt.Println("Pattern1 start...")
 	start1 := time.Now()
@@ -24,8 +27,8 @@ func MyEcho2() {
 	start2 := time.Now()
 	// Pattern 2
 	// this returns process name & result
-	//fmt.Printf("Process name:\n%v\n\n", os.Args[0])
-	//fmt.Printf("Result:\n")
+	// fmt.Printf("Process name:\n%v\n\n", os.Args[0])
+	// fmt.Printf("Result:\n")
 	fmt.Printf(strings.Join(os.Args[1:], " "))
 	goal2 := time.Now()
 
