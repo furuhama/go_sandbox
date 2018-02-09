@@ -5,8 +5,8 @@ import (
 	"os"
 )
 
-// Create is making txt file & write byte data in it
-func Create() {
+// CreateText is making txt file & write byte data in it
+func CreateText() {
 	file, err := os.Create("test.txt")
 	if err != nil {
 		panic(err)

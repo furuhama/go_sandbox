@@ -7,5 +7,5 @@ import (
 
 func main() {
 	fmt.Printf("====================\n    Hello world!\n====================\n\n")
-	systems.Create()
+	systems.CreateText()
 }
