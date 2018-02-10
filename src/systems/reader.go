@@ -2,8 +2,10 @@
 package systems
 
 import (
+	"bytes"
 	"encoding/binary"
 	"fmt"
+	"hash/crc32"
 	"io"
 	"os"
 	"strings"
@@ -46,6 +48,12 @@ func dumpChunk(chunk io.Reader) {
 	buffer := make([]byte, 4)
 	chunk.Read(buffer)
 	fmt.Printf("chunk '%v' (%d bytes)\n", string(buffer), length)
+	// print inside tEXt chunk
+	if bytes.Equal(buffer, []byte("tEXt")) {
+		rawText := make([]byte, length)
+		chunk.Read(rawText)
+		fmt.Println(string(rawText))
+	}
 }
 
 func readChunks(file *os.File) []io.Reader {
@@ -71,12 +79,50 @@ func readChunks(file *os.File) []io.Reader {
 
 // ReadPNGChunck reads PNG bytes and return it as a chunks
 func ReadPNGChunck() {
-	file, err := os.Open("Lenna.png")
+	file, err := os.Open("Lenna2.png")
 	if err != nil {
 		panic(err)
 	}
 	chunks := readChunks(file)
 	for _, chunk := range chunks {
 		dumpChunk(chunk)
+	}
+}
+
+func textChunk(text string) io.Reader {
+	byteData := []byte(text)
+	var buffer bytes.Buffer
+	binary.Write(&buffer, binary.BigEndian, int32(len(byteData)))
+	buffer.WriteString("tEXt")
+	buffer.Write(byteData)
+	// calculate CRC and add it
+	crc := crc32.NewIEEE()
+	io.WriteString(crc, "tEXt")
+	binary.Write(&buffer, binary.BigEndian, crc.Sum32())
+	return &buffer
+}
+
+// AddTextChunk reads PNG file and add text chunk
+func AddTextChunk() {
+	file, err := os.Open("Lenna.png")
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+	newFile, err := os.Create("Lenna2.png")
+	if err != nil {
+		panic(err)
+	}
+	defer newFile.Close()
+	chunks := readChunks(file)
+	// シグニチャ書き込み
+	io.WriteString(newFile, "\x89PNG\r\n\x1a\n")
+	// 先頭に必要なIHDRチャンクを書き込み
+	io.Copy(newFile, chunks[0])
+	// テキストチャンクを追加
+	io.Copy(newFile, textChunk("PIYO FUNCTION ++"))
+	// 残りのチャンクを追加
+	for _, chunk := range chunks[1:] {
+		io.Copy(newFile, chunk)
 	}
 }
