@@ -2,6 +2,8 @@
 package systems
 
 import (
+	"bytes"
+	"fmt"
 	"os"
 )
 
@@ -13,4 +15,16 @@ func CreateText() {
 	}
 	file.Write([]byte("os.File examples"))
 	file.Close()
+}
+
+// StdOut send Stdout to example texts
+func StdOut() {
+	os.Stdout.Write([]byte("os.Stdout example\n"))
+}
+
+// Buffer put byte data into buffer, and send it to Stdout
+func Buffer() {
+	var buffer bytes.Buffer
+	buffer.Write([]byte("bytes.Buffer example\n"))
+	fmt.Println(buffer.String())
 }
