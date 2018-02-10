@@ -4,6 +4,7 @@ package systems
 import (
 	"bufio"
 	"bytes"
+	"crypto/rand"
 	"fmt"
 	"io"
 	"os"
@@ -53,4 +54,14 @@ func MakeCopy() {
 	}
 	defer newFile.Close()
 	io.Copy(newFile, oldFile)
+}
+
+// RandCreate makes a file filled with Rand data
+func RandCreate() {
+	file, err := os.Create("rand.txt")
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+	io.CopyN(file, rand.Reader, 1024)
 }

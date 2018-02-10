@@ -11,5 +11,6 @@ func main() {
 	// systems.ReadStdio()
 	// systems.OpenFile()
 	// systems.HandleHTML()
-	systems.MakeCopy()
+	// systems.MakeCopy()
+	systems.RandCreate()
 }
