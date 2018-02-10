@@ -8,5 +8,5 @@ import (
 func main() {
 	hello.Hello()
 
-	systems.ConvertEndian()
+	systems.ReadPNGChunck()
 }
