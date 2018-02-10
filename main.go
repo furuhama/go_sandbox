@@ -8,5 +8,6 @@ import (
 func main() {
 	hello.Hello()
 
-	systems.ReadStdio()
+	// systems.ReadStdio()
+	systems.OpenFile()
 }

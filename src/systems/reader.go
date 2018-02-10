@@ -20,3 +20,13 @@ func ReadStdio() {
 		fmt.Printf("size=%d input='%s'\n", size, string(buffer))
 	}
 }
+
+// OpenFile opens file & copy data to Stdout
+func OpenFile() {
+	file, err := os.Open("hello.txt")
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+	io.Copy(os.Stdout, file)
+}
