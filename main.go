@@ -10,6 +10,6 @@ func main() {
 
 	systems.StdOut()
 	systems.Buffer()
-	systems.TCPConnect()
-	systems.Handling()
+	// systems.TCPConnect()
+	// systems.Handling()
 }
