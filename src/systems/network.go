@@ -4,6 +4,7 @@ package systems
 import (
 	"io"
 	"net"
+	"net/http"
 	"os"
 )
 
@@ -15,4 +16,14 @@ func TCPConnect() {
 	}
 	conn.Write([]byte("GET / HTTP/1.0\r\nHost: furuhama.github.io\r\n\r\n"))
 	io.Copy(os.Stdout, conn)
+}
+
+func handler(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("http.ResponseWriter sample"))
+}
+
+// Handling set local server
+func Handling() {
+	http.HandleFunc("/", handler)
+	http.ListenAndServe(":8000", nil)
 }

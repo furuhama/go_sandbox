@@ -11,4 +11,5 @@ func main() {
 	systems.StdOut()
 	systems.Buffer()
 	systems.TCPConnect()
+	systems.Handling()
 }
