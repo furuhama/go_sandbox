@@ -2,6 +2,7 @@
 package systems
 
 import (
+	"bufio"
 	"bytes"
 	"fmt"
 	"os"
@@ -27,4 +28,13 @@ func Buffer() {
 	var buffer bytes.Buffer
 	buffer.Write([]byte("bytes.Buffer example\n"))
 	fmt.Println(buffer.String())
+}
+
+// FlushBuf uses Buffer and flush its data
+func FlushBuf() {
+	buffer := bufio.NewWriter(os.Stdout)
+	buffer.WriteString("bufio.Writer ")
+	buffer.Flush()
+	buffer.WriteString("example\n")
+	buffer.Flush()
 }

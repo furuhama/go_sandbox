@@ -12,4 +12,5 @@ func main() {
 	systems.Buffer()
 	// systems.TCPConnect()
 	// systems.Handling()
+	systems.FlushBuf()
 }
