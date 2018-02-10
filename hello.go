@@ -1,12 +1,12 @@
 package main
 
 import (
-	"fmt"
+	"hello"
 	"systems"
 )
 
 func main() {
-	fmt.Printf("====================\n    Hello world!\n====================\n\n")
+	hello.Hello()
 
 	systems.StdOut()
 	systems.Buffer()
