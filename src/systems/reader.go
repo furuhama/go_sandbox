@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"strings"
 )
 
 // ReadStdio reads Std input & return it
@@ -29,4 +30,11 @@ func OpenFile() {
 	}
 	defer file.Close()
 	io.Copy(os.Stdout, file)
+}
+
+// ReadOnlyHead reads only first some bytes of given data
+func ReadOnlyHead() {
+	reader := strings.NewReader("Example of io.SectionReader\n")
+	sectionReader := io.NewSectionReader(reader, 14, 7)
+	io.Copy(os.Stdout, sectionReader)
 }

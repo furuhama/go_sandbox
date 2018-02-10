@@ -8,9 +8,5 @@ import (
 func main() {
 	hello.Hello()
 
-	// systems.ReadStdio()
-	// systems.OpenFile()
-	// systems.HandleHTML()
-	// systems.MakeCopy()
-	systems.RandCreate()
+	systems.ReadOnlyHead()
 }
