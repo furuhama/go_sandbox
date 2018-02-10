@@ -8,10 +8,5 @@ import (
 func main() {
 	hello.Hello()
 
-	systems.StdOut()
-	systems.Buffer()
-	// systems.TCPConnect()
-	// systems.Handling()
-	systems.FlushBuf()
-	systems.FormatTime()
+	systems.ReadStdio()
 }
