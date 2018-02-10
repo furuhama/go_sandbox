@@ -9,5 +9,7 @@ func main() {
 	hello.Hello()
 
 	// systems.ReadStdio()
-	systems.OpenFile()
+	// systems.OpenFile()
+	// systems.HandleHTML()
+	systems.MakeCopy()
 }

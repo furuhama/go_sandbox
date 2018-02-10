@@ -5,6 +5,7 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
+	"io"
 	"os"
 )
 
@@ -37,4 +38,19 @@ func FlushBuf() {
 	buffer.Flush()
 	buffer.WriteString("example\n")
 	buffer.Flush()
+}
+
+// MakeCopy reads exist file and make a copy
+func MakeCopy() {
+	oldFile, err := os.Open("hello.txt")
+	if err != nil {
+		panic(err)
+	}
+	defer oldFile.Close()
+	newFile, err := os.Create("goodbye.txt")
+	if err != nil {
+		panic(err)
+	}
+	defer newFile.Close()
+	io.Copy(newFile, oldFile)
 }
