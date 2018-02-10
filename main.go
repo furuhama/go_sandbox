@@ -13,4 +13,5 @@ func main() {
 	// systems.TCPConnect()
 	// systems.Handling()
 	systems.FlushBuf()
+	systems.FormatTime()
 }
