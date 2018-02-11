@@ -1,5 +1,5 @@
-// Package mathapp is my math app
-package mathapp
+// Package mymath is original implementation of math functions
+package mymath
 
 import (
 	"fmt"
