@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	systems.TCPSocketServer()
+	systems.TCPSocketClient()
 }
