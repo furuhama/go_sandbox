@@ -14,7 +14,7 @@ import (
 )
 
 // TCPSocketServer sets server up
-// keep-alive ver.
+// to be compatible with keep-alive
 func TCPSocketServer() {
 	listener, err := net.Listen("tcp", "localhost:8888")
 	if err != nil {
@@ -69,7 +69,7 @@ func TCPSocketServer() {
 }
 
 // TCPSocketClient sends http request
-// keep-alive ver.
+// to be compatible with keep-alive
 func TCPSocketClient() {
 	sendMessages := []string{
 		"PIYO",
