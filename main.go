@@ -10,4 +10,6 @@ func main() {
 
 	systems.AddTextChunk()
 	systems.ReadPNGChunck()
+
+	systems.FetchOSCreate()
 }
