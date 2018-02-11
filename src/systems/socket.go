@@ -4,14 +4,17 @@ package systems
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net"
 	"net/http"
 	"net/http/httputil"
 	"strings"
+	"time"
 )
 
 // TCPSocketServer sets server up
+// keep-alive ver.
 func TCPSocketServer() {
 	listener, err := net.Listen("tcp", "localhost:8888")
 	if err != nil {
@@ -25,48 +28,94 @@ func TCPSocketServer() {
 		}
 		go func() {
 			fmt.Printf("Accept %v\n", conn.RemoteAddr())
-			// Read request
-			request, err := http.ReadRequest(bufio.NewReader(conn))
-			if err != nil {
-				panic(err)
+			for {
+				// set Timeout
+				conn.SetReadDeadline(time.Now().Add(5 * time.Second))
+				// Read request
+				request, err := http.ReadRequest(bufio.NewReader(conn))
+				if err != nil {
+					// End process when timeout or socket closed
+					// occur error except situations written above
+					neterr, ok := err.(net.Error) // downcast
+					if ok && neterr.Timeout() {
+						fmt.Println("Timeout")
+						break
+					} else if err == io.EOF {
+						break
+					}
+					panic(err)
+				}
+				// display request
+				dump, err := httputil.DumpRequest(request, true)
+				if err != nil {
+					panic(err)
+				}
+				fmt.Println(string(dump))
+				content := "Hello, world\n"
+				// write response
+				// setting for HTTP/1.1 & ContentLength
+				response := http.Response{
+					StatusCode:    200,
+					ProtoMajor:    1,
+					ProtoMinor:    1,
+					ContentLength: int64(len(content)),
+					Body:          ioutil.NopCloser(strings.NewReader(content)),
+				}
+				response.Write(conn)
 			}
-			dump, err := httputil.DumpRequest(request, true)
-			if err != nil {
-				panic(err)
-			}
-			fmt.Println(string(dump))
-			// write response
-			response := http.Response{
-				StatusCode: 200,
-				ProtoMajor: 1,
-				ProtoMinor: 0,
-				Body:       ioutil.NopCloser(strings.NewReader("Hello, world\n")),
-			}
-			response.Write(conn)
 			conn.Close()
 		}()
 	}
 }
 
 // TCPSocketClient sends http request
+// keep-alive ver.
 func TCPSocketClient() {
-	conn, err := net.Dial("tcp", "localhost:8888")
-	if err != nil {
-		panic(err)
+	sendMessages := []string{
+		"PIYO",
+		"FUNCTION",
+		"PLUSPLUS",
 	}
-	request, err := http.NewRequest("GET", "http://localhost:8888", nil)
-	if err != nil {
-		panic(err)
+	current := 0
+	var conn net.Conn
+	for {
+		var err error
+		// start Dial when haven't set connection, or retry because of an error
+		if conn == nil {
+			conn, err = net.Dial("tcp", "localhost:8888")
+			if err != nil {
+				panic(err)
+			}
+			fmt.Printf("Access: %d\n", current)
+		}
+		// define request to send literals as POST method
+		request, err := http.NewRequest("POST", "http://localhost:8888", strings.NewReader(sendMessages[current]))
+		if err != nil {
+			panic(err)
+		}
+		err = request.Write(conn)
+		if err != nil {
+			panic(err)
+		}
+		// read response from server
+		// when timeout, an error occurs written below
+		response, err := http.ReadResponse(
+			bufio.NewReader(conn), request)
+		if err != nil {
+			fmt.Println("Retry")
+			conn = nil
+			continue
+		}
+		// show results
+		dump, err := httputil.DumpResponse(response, true)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println(string(dump))
+		// end if every content is transported
+		current++
+		if current == len(sendMessages) {
+			break
+		}
 	}
-	request.Write(conn)
-	response, err := http.ReadResponse(
-		bufio.NewReader(conn), request)
-	if err != nil {
-		panic(err)
-	}
-	dump, err := httputil.DumpResponse(response, true)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(string(dump))
 }
