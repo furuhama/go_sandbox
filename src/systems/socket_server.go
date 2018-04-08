@@ -35,7 +35,7 @@ func TCPSocketServer() {
 }
 
 // TCPSocketServerChunk sets server up
-// to senf chunked data
+// to send chunked data
 func TCPSocketServerChunk() {
 	listener, err := net.Listen("tcp", "localhost:8888")
 	if err != nil {
@@ -50,6 +50,25 @@ func TCPSocketServerChunk() {
 			panic(err)
 		}
 		go processSessionChunk(conn)
+	}
+}
+
+// TCPSocketServerPipeline sets server up
+// to send data with construct pipeline to client
+func TCPSocketServerPipeline() {
+	listener, err := net.Listen("tcp", "localhost:8888")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Server is running at localhost:8888")
+
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			panic(err)
+		}
+		go processSessionPipeline(conn)
 	}
 }
 
@@ -157,6 +176,77 @@ func processSessionChunk(conn net.Conn) {
 		}
 		fmt.Fprintf(conn, "0\r\n\r\n")
 	}
+}
+
+func processSessionPipeline(conn net.Conn) {
+	fmt.Printf("Accept %v\n", conn.RemoteAddr())
+
+	// processing requests in session by order
+	sessionResponses := make(chan chan *http.Response, 50)
+	defer close(sessionResponses)
+
+	// channels to serialize responses & write to socket
+	go writeToConn(sessionResponses, conn)
+	reader := bufio.NewReader(conn)
+	for {
+		// get response & set it into session queue
+		conn.SetReadDeadline(time.Now().Add(5 * time.Second))
+
+		// read request
+		request, err := http.ReadRequest(reader)
+		if err != nil {
+			neterr, ok := err.(net.Error)
+			if ok && neterr.Timeout() {
+				fmt.Println("Timeout")
+				break
+			} else if err == io.EOF {
+				break
+			}
+			panic(err)
+		}
+
+		sessionResponse := make(chan *http.Response)
+		sessionResponses <- sessionResponse
+
+		// do response asynchronously
+		go handleRequest(request, sessionResponse)
+	}
+}
+
+// write to conn by order
+// use goroutine
+func writeToConn(sessionResponses chan chan *http.Response, conn net.Conn) {
+	defer conn.Close()
+
+	for sessionResponse := range sessionResponses {
+		response := <-sessionResponse
+		response.Write(conn)
+		close(sessionResponse)
+	}
+}
+
+func handleRequest(request *http.Request, resultReceiver chan *http.Response) {
+	dump, err := httputil.DumpRequest(request, true)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(string(dump))
+
+	content := "Hello, World\n"
+	// write response
+	// to keep session, this should be keep-alive
+	response := &http.Response{
+		StatusCode:    200,
+		ProtoMajor:    1,
+		ProtoMinor:    1,
+		ContentLength: int64(len(content)),
+		Body:          ioutil.NopCloser(strings.NewReader(content)),
+	}
+
+	// after complete process,
+	// write in channel & restart blocked writeToConn process
+	resultReceiver <- response
 }
 
 func isGZipAcceptable(request *http.Request) bool {
