@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	fmt.Println("TCPSocketClient start")
-	systems.TCPSocketClient()
-	fmt.Println("TCPSocketClient end")
+	fmt.Println("TCPSocketServer start")
+	systems.TCPSocketServerChunk()
+	fmt.Println("TCPSocketServer end")
 }

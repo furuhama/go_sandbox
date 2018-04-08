@@ -34,6 +34,25 @@ func TCPSocketServer() {
 	}
 }
 
+// TCPSocketServerChunk sets server up
+// to senf chunked data
+func TCPSocketServerChunk() {
+	listener, err := net.Listen("tcp", "localhost:8888")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Server is running at localhost:8888")
+
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			panic(err)
+		}
+		go processSessionChunk(conn)
+	}
+}
+
 func processSession(conn net.Conn) {
 	fmt.Printf("Accept %v\n", conn.RemoteAddr())
 	defer conn.Close()
