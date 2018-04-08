@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -82,5 +83,68 @@ func TCPSocketClient() {
 		if current == len(sendMessages) {
 			break
 		}
+	}
+}
+
+// TCPSocketClientChunk sends http request
+// to get chunked data
+func TCPSocketClientChunk() {
+	conn, err := net.Dial("tcp", "localhost:8888")
+	if err != nil {
+		panic(err)
+	}
+
+	// define request as GET method
+	request, err := http.NewRequest("GET", "http://localhost:8888", nil)
+	if err != nil {
+		panic(err)
+	}
+
+	err = request.Write(conn)
+	if err != nil {
+		panic(err)
+	}
+
+	reader := bufio.NewReader(conn)
+	// read response from server
+	// when timeout, an error occurs written below
+	response, err := http.ReadResponse(reader, request)
+	if err != nil {
+		panic(err)
+	}
+
+	// show results
+	dump, err := httputil.DumpResponse(response, false)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(string(dump))
+
+	if len(response.TransferEncoding) < 1 || response.TransferEncoding[0] != "chunked" {
+		panic("wrong transfer encoding")
+	}
+
+	for {
+		// get size of transferred data
+		sizeStr, err := reader.ReadBytes('\n')
+		if err == io.EOF {
+			break
+		}
+
+		// parse hex size
+		// close if size if zero
+		size, err := strconv.ParseInt(string(sizeStr[:len(sizeStr)-2]), 16, 64)
+		if size == 0 {
+			break
+		}
+		if err != nil {
+			panic(err)
+		}
+
+		// read data by getting buffer as size length
+		line := make([]byte, int(size))
+		reader.Read(line)
+		reader.Discard(2)
+		fmt.Printf("  %d bytes: %s\n", size, string(line))
 	}
 }
