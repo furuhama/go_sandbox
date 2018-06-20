@@ -3,14 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
-	// "systems"
 )
-
-// func main() {
-//     fmt.Println("TCPSocketClient start")
-//     systems.TCPSocketClientPipeline()
-//     fmt.Println("TCPSocketClient end")
-// }
 
 func worker(msg string) <-chan string {
 	receiver := make(chan string)
