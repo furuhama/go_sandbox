@@ -1,5 +1,5 @@
-// Package mymethod is practicing the OOP programming
-package mymethod
+// Package mytypes is practicing the OOP programming
+package mytypes
 
 import (
 	"math"
@@ -10,9 +10,9 @@ type Vertex struct {
 	X, Y float64
 }
 
-// ReceiverAbs is Vertex type method
+// RecieverAbs is Vertex type method
 // this returns the length of Vertex
-func (v Vertex) ReceiverAbs() float64 {
+func (v Vertex) RecieverAbs() float64 {
 	return math.Sqrt(v.X*v.X + v.Y*v.Y)
 }
 

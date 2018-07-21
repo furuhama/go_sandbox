@@ -1,4 +1,4 @@
-package mymethod
+package mytypes
 
 // MyFloat is original float64 type
 type MyFloat float64
