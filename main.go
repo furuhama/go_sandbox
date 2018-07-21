@@ -6,8 +6,6 @@ import (
 )
 
 func main() {
-	v := mytypes.Vertex{}
-	v.X = 10
-	v.Y = 20
+	v := mytypes.Vertex{X: 10, Y: 20}
 	fmt.Println(v.RecieverAbs())
 }
