@@ -1,9 +1,13 @@
 package main
 
 import (
-	"github.com/furuhama/go_sandbox/concurrent"
+	"fmt"
+	"github.com/furuhama/go_sandbox/mytypes"
 )
 
 func main() {
-	concurrent.RunWorker()
+	v := mytypes.Vertex{}
+	v.X = 10
+	v.Y = 20
+	fmt.Println(v.RecieverAbs())
 }
