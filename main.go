@@ -1,13 +1,9 @@
 package main
 
 import (
-	"github.com/furuhama/go_sandbox/mytypes"
+	"github.com/furuhama/go_sandbox/ch2"
 )
 
 func main() {
-	v := mytypes.Vertex{X: 10, Y: 20}
-	v.PrintParameters()
-
-	v.ReverseVertex()
-	v.PrintParameters()
+	ch2.Capitalize()
 }
