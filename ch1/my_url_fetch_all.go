@@ -1,5 +1,5 @@
 // Package tutorial is for the chapter 1 of "The Go Programming Language"
-package tutorial
+package ch1
 
 import (
 	"fmt"
