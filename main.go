@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/furuhama/go_sandbox/ch2"
+	"github.com/furuhama/go_sandbox/ch3"
 )
 
 func main() {
-	ch2.Capitalize()
+	ch3.Surface()
 }
