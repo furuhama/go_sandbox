@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	ch3.Surface()
+	ch3.Mandelbrot()
 }
