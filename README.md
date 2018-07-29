@@ -13,3 +13,7 @@ I am tackling these contents below in this repository.
 #### Lissajous Curve gif
 
 ![lissajous curve](https://github.com/furuhama/go_sandbox/blob/master/img/out2.gif)
+
+#### Sin Wave svg
+
+![sinwave](https://github.com/furuhama/go_sandbox/blob/master/img/surface.svg)
