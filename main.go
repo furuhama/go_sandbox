@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	ch3.Mandelbrot()
+	ch3.String()
 }
