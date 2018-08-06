@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/furuhama/go_sandbox/ch3"
+	"github.com/furuhama/go_sandbox/concurrent"
 )
 
 func main() {
-	ch3.String()
+	concurrent.Fibonacci()
 }
