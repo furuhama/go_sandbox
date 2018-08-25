@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/furuhama/go_sandbox/concurrent"
+	"github.com/furuhama/go_sandbox/myregexp"
 )
 
 func main() {
-	concurrent.Fibonacci()
+	myregexp.TryRegExp()
 }
